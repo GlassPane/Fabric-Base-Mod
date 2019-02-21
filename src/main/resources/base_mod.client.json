@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "com.github.glasspane.basemod.mixin.client",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+      "MixinItemModels"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

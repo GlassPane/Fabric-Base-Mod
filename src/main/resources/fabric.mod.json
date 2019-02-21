@@ -1,0 +1,18 @@
+{
+  "id": "fabric_base_mod",
+  "name": "Fabric Base Mod",
+  "description": "Basic Mod Template for Fabric Mods",
+  "version": "${version}",
+  "side": "universal",
+  "initializers": [
+    "com.github.glasspane.basemod.BaseMod"
+  ],
+  "requires": {
+    "fabric": "*",
+    "mesh": "*"
+  },
+  "mixins": {
+    "client": "base_mod.client.json",
+    "common": "base_mod.common.json"
+  }
+}
