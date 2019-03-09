@@ -8,14 +8,15 @@ plugins {
     id "maven-publish"
 }
 
-apply from: "https://raw.githubusercontent.com/NerdHubMC/Gradle-Scripts/master/scripts/fabric/publish/nerdhub_maven.gradle"
-apply from: "https://raw.githubusercontent.com/NerdHubMC/Gradle-Scripts/master/scripts/fabric/dependencies/development_suite.gradle"
-
 sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
 
 group = "com.github.GlassPane"
 archivesBaseName = "Fabric-Base-Mod"
 version = System.getenv("TRAVIS_TAG") ?: project.mod_version
+println("Setting version: " + version)
+
+apply from: "https://raw.githubusercontent.com/NerdHubMC/Gradle-Scripts/master/scripts/fabric/basic_project.gradle"
+apply from: "https://raw.githubusercontent.com/NerdHubMC/Gradle-Scripts/master/scripts/fabric/dependencies/development_suite.gradle"
 
 processResources {
     // this will ensure that this task is redone when there"s a change
