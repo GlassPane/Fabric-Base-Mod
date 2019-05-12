@@ -32,7 +32,8 @@ processResources {
 
         // add mod metadata
         expand "version": project.version , //"changelog_url": project.changelog_url,
-                "curseforge_id": project.curseforge_id, "license": project.license_header
+                "curseforge_id": project.curseforge_id, "license": project.license_header,
+                "mod_name": project.mod_name
 
         filter { String line ->
             line.replace("\"fabric\": \"*\"", "\"fabric\": \"[${project.fabric_version},)\"")
