@@ -10,8 +10,8 @@ plugins {
 
 sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
 
-group = "com.github.GlassPane"
-archivesBaseName = "Fabric-Base-Mod"
+group = project.maven_group
+archivesBaseName = project.name.toLowerCase(Locale.ROOT)
 version = System.getenv("TRAVIS_TAG") ?: project.mod_version
 println("Setting version: " + version)
 
@@ -31,8 +31,8 @@ processResources {
         include "fabric.mod.json"
 
         // add mod metadata
-        expand "version": project.version /*, "changelog_url": project.changelog_url,
-                "curseforge_id": project.curseforge_id, "license": project.license_header*/
+        expand "version": project.version , //"changelog_url": project.changelog_url,
+                "curseforge_id": project.curseforge_id, "license": project.license_header
 
         filter { String line ->
             line.replace("\"fabric\": \"*\"", "\"fabric\": \"[${project.fabric_version},)\"")
