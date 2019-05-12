@@ -16,7 +16,11 @@ version = System.getenv("TRAVIS_TAG") ?: project.mod_version
 println("Setting version: " + version)
 
 apply from: "https://raw.githubusercontent.com/NerdHubMC/Gradle-Scripts/master/scripts/fabric/basic_project.gradle"
-apply from: "https://raw.githubusercontent.com/NerdHubMC/Gradle-Scripts/master/scripts/fabric/dependencies/development_suite.gradle"
+try {
+    apply from: "https://raw.githubusercontent.com/NerdHubMC/Gradle-Scripts/master/scripts/fabric/dependencies/${minecraft_version}/development_suite.gradle"
+} catch (MissingResourceException e) {
+    System.err.println(e.message)
+}
 
 processResources {
     // this will ensure that this task is redone when there"s a change
