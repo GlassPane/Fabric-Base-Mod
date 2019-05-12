@@ -12,7 +12,7 @@
     "mesh": "*"
   },
   "mixins": {
-    "client": "base_mod.client.json",
-    "common": "base_mod.common.json"
+    "client": "mixins.base_mod.client.json",
+    "common": "mixins.base_mod.common.json"
   }
 }

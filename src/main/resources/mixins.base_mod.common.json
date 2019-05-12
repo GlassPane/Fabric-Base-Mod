@@ -3,8 +3,7 @@
   "package": "com.github.glasspane.basemod.mixin.common",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-      "MixinLivingEntity",
-      "MixinMobEntity"
+
   ],
   "injectors": {
     "defaultRequire": 1
