@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "com.github.glasspane.basemod.mixin.client",
+  "package": "io.github.glasspane.basemod.mixin.client",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
 
