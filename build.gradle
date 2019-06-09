@@ -69,7 +69,7 @@ dependencies {
     modCompile "com.github.GlassPane:Mesh:${mesh_version}"
 
     //optional dependency!
-    modCompile "net.fabricmc:fabric:${fabric_version}"
+    modCompile "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 }
 
 license {
