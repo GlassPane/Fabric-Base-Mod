@@ -11,7 +11,7 @@ plugins {
 sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
 
 group = project.maven_group
-archivesBaseName = project.name.toLowerCase(Locale.ROOT)
+archivesBaseName = project.name
 version = System.getenv("TRAVIS_TAG") ?: project.mod_version
 println("Setting version: " + version)
 
