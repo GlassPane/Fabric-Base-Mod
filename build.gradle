@@ -2,7 +2,7 @@ import java.nio.charset.StandardCharsets
 import java.time.Year
 
 plugins {
-    id "fabric-loom" version "0.2.0-SNAPSHOT"
+    id "fabric-loom" version "0.2.4-SNAPSHOT"
     id "com.matthewprenger.cursegradle" version "1.1.2"
     id "net.minecrell.licenser" version "0.2.1"
     id "maven-publish"
@@ -10,13 +10,17 @@ plugins {
 
 sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
 
-group = "com.github.GlassPane"
-archivesBaseName = "Fabric-Base-Mod"
+group = project.maven_group
+archivesBaseName = project.name
 version = System.getenv("TRAVIS_TAG") ?: project.mod_version
 println("Setting version: " + version)
 
 apply from: "https://raw.githubusercontent.com/NerdHubMC/Gradle-Scripts/master/scripts/fabric/basic_project.gradle"
-apply from: "https://raw.githubusercontent.com/NerdHubMC/Gradle-Scripts/master/scripts/fabric/dependencies/development_suite.gradle"
+try {
+    apply from: "https://raw.githubusercontent.com/NerdHubMC/Gradle-Scripts/master/scripts/fabric/dependencies/${minecraft_version}/development_suite.gradle"
+} catch (MissingResourceException e) {
+    System.err.println(e.message)
+}
 
 processResources {
     // this will ensure that this task is redone when there"s a change
@@ -27,8 +31,9 @@ processResources {
         include "fabric.mod.json"
 
         // add mod metadata
-        expand "version": project.version /*, "changelog_url": project.changelog_url,
-                "curseforge_id": project.curseforge_id, "license": project.license_header*/
+        expand "version": project.version , //"changelog_url": project.changelog_url,
+                "curseforge_id": project.curseforge_id, "license": project.license_header,
+                "mod_name": project.mod_name
 
         filter { String line ->
             line.replace("\"fabric\": \"*\"", "\"fabric\": \"[${project.fabric_version},)\"")
@@ -59,30 +64,34 @@ repositories {
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings "net.fabricmc:yarn:${yarn_mappings}"
-    modCompile "net.fabricmc:fabric-loader:${loader_version}"
+    modImplementation "net.fabricmc:fabric-loader:${loader_version}"
 
-    modCompile "com.github.GlassPane:Mesh:${mesh_version}"
+    modApi "com.github.GlassPane:Mesh:${mesh_version}"
 
     //optional dependency!
-    modCompile "net.fabricmc:fabric:${fabric_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 }
 
 license {
-    header = file("code_quality/${project.license_header}_HEADER.txt")
+    header = rootProject.file("code_quality/${project.license_header}_HEADER.txt")
+
     // Apply licenses only to main source set
     sourceSets = [project.sourceSets.main]
     include "**/*.java"
-    charset = StandardCharsets.UTF_8.name()
 
-    style {
-        java = "BLOCK_COMMENT"
-    }
     newLine = false // Disables the empty line between the header and package name
     //ignoreFailures = true //Ignore failures and only print a warning on license violations
 
     //export variables
     ext {
         year = Year.now()
-        projectDisplayName = project.archivesBaseName
+        projectDisplayName = project.name
+        projectOwners = rootProject.owners
+        if (project.license_header.contains('GPL')) {
+            if (!project.hasProperty("gpl_version")) {
+                throw new RuntimeException("GPL version needs to be specified through the 'gpl_version' property")
+            }
+            gplVersion = project.gpl_version
+        }
     }
 }

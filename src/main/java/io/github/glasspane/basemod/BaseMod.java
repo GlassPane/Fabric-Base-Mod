@@ -1,4 +1,4 @@
-package com.github.glasspane.basemod;
+package io.github.glasspane.basemod;
 
 import com.github.glasspane.mesh.api.annotation.CalledByReflection;
 import net.fabricmc.api.ModInitializer;

@@ -1,18 +1,33 @@
 {
+  "schemaVersion": 1,
   "id": "fabric_base_mod",
-  "name": "Fabric Base Mod",
+  "name": "${mod_name}",
   "description": "Basic Mod Template for Fabric Mods",
   "version": "${version}",
-  "side": "universal",
-  "initializers": [
-    "com.github.glasspane.basemod.BaseMod"
+  "license": "${license}",
+
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+
+    ],
+    "main": [
+      "io.github.glasspane.basemod.BaseMod"
+    ]
+  },
+  "mixins": [
+    {
+      "environment": "client",
+      "config": "mixins.base_mod.client.json"
+    },
+    {
+      "environment": "*",
+      "config": "mixins.base_mod.common.json"
+    }
   ],
-  "requires": {
+
+  "depends": {
     "fabric": "*",
     "mesh": "*"
-  },
-  "mixins": {
-    "client": "base_mod.client.json",
-    "common": "base_mod.common.json"
   }
 }

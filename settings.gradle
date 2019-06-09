@@ -8,4 +8,4 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-rootProject.name = 'Fabric-Base-Mod'
+rootProject.name = mod_name.replace(' ', '-')
